@@ -6,7 +6,7 @@ export default function getUser(){
     return dispatch => {
         axios.get('../user_list.json')
         .then(res => {
-            const people = res.data.map(user => {
+            const user = res.data.map(user => {
                 return user;
             });
             dispatch(getUserSync(user));

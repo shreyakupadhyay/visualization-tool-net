@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import userAction from '../actions/userAction';
+import userAction from './actions/userAction';
 
 class App extends Component {
   
