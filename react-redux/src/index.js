@@ -9,14 +9,20 @@ import App from './App';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
+//material ui
+import injectTapEventPlugin from 'react-tap-event-plugin'; 
+import LineChart from './components/linechart';
+
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
+injectTapEventPlugin();
+
 render(
     <Provider store={store}>
-        <App />
+        <LineChart />
     </Provider>,
-    document.getElementById('root')
+    document.getElementById('graphic')
 )
 
 registerServiceWorker();
