@@ -128,9 +128,9 @@ export default class LineChart extends Component {
     }
 
     handleSubmit(submittedData){
-      let formatDate = d3.time.format("%d-%b-%Y");
+      let formatDate = d3.time.format("%d-%m-%Y");
       function type(d) {
-        d.date = formatDate.parse(+d.date);
+        d.date = formatDate.parse(d.date);
         d.close = +d.close;
         return d;
       }
@@ -160,10 +160,10 @@ export default class LineChart extends Component {
 
       const _this = this;
 
-      let formatDate = d3.time.format("%d-%b-%Y");
-  
+      let formatDate = d3.time.format("%d-%b-%y");
+
       function type(d) {
-        d.date = formatDate.parse(+d.date);
+        d.date = formatDate.parse(d.date);
         d.close = +d.close;
         return d;
       }
@@ -198,10 +198,10 @@ export default class LineChart extends Component {
       return(
         <div>
           <form>
-            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "data4.csv")}/> 2181 Rows<br />
-            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "data4.csv")}/> 600 Rows<br />
-            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "data4.csv")}/> 300 Rows<br />
-            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "data4.csv")}/> 50 Rows
+            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "./data.csv")}/> 2181 Rows<br />
+            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "./data2.csv")}/> 600 Rows<br />
+            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "./data3.csv")}/> 300 Rows<br />
+            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "./data4.csv")}/> 50 Rows
           </form>
           <div id="chart">
             <svg height={height} width={width} >
