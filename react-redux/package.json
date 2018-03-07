@@ -5,7 +5,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "d3": "^3.5.2",
-    "lodash": "file://node_modules/lodash",
+    "lodash": "^4.17.5",
     "material-ui": "^0.20.0",
     "react": "^16.2.0",
     "react-d3-basic": "^1.6.11",
