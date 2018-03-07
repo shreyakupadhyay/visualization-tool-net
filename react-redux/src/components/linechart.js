@@ -169,7 +169,7 @@ export default class LineChart extends Component {
       }
 
       d3.csv("data4.csv", type, function(error, data) {
-        console.log(data)
+        console.log(data);
         if (error) throw error;
 
         _this.setState({
