@@ -168,7 +168,7 @@ export default class LineChart extends Component {
         return d;
       }
 
-      d3.csv("/data4.csv", type, function(error, data) {
+      d3.csv("data4.csv", type, function(error, data) {
         console.log(data)
         if (error) throw error;
 
@@ -198,10 +198,10 @@ export default class LineChart extends Component {
       return(
         <div>
           <form>
-            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "/data4.csv")}/> 2181 Rows<br />
-            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "/data4.csv")}/> 600 Rows<br />
-            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "/data4.csv")}/> 300 Rows<br />
-            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "/data4.csv")}/> 50 Rows
+            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "data4.csv")}/> 2181 Rows<br />
+            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "data4.csv")}/> 600 Rows<br />
+            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "data4.csv")}/> 300 Rows<br />
+            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "data4.csv")}/> 50 Rows
           </form>
           <div id="chart">
             <svg height={height} width={width} >
