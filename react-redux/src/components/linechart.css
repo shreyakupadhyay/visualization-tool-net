@@ -1,28 +1,20 @@
-#chart {
-    background-color: rgb(182, 173, 173);
-    border: 1px solid #CCC;
-}
+body {
+    font: 10px sans-serif;
+  }
 
-.bar {
-    shape-rendering: crispEdges;
-}
-
-.bar-label{
-    fill: #000;
-    text-anchor: middle;
-    font-size: 18px;
-}
-
-.axis path,
-.axis line {
+  .axis path,
+  .axis line {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
-}
+  }
 
-.gridline path,
-.gridline line{
+  .x.axis path {
+    display: none;
+  }
+
+  .line {
     fill: none;
-    stroke: #ccc;
-    shape-rendering: crispEdges;
-}
+    stroke: steelblue;
+    stroke-width: 1.5px;
+  }

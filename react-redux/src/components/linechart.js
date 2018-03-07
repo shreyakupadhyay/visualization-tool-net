@@ -6,6 +6,8 @@ import { select } from 'd3-selection';
 import chartData from './data';
 import * as d3 from "d3";
 
+import './linechart.css';
+
 class AxisX extends Component {
   render() {
     var data = this.props.data;
@@ -13,27 +15,21 @@ class AxisX extends Component {
     var height = this.props.height - margin.top - margin.bottom;
     var width = this.props.width  - margin.left - margin.right;
 
-    var y = d3.scale.linear()
-      .range([height, 0]);
+    var x = d3.time.scale()
+      .range([0, width]);
 
-    var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left");
+    var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
 
-    y.domain(d3.extent(data, function(d) { return d.close; }));
+    x.domain(d3.extent(data, function(d) { return d.date; }));
 
-    d3.select(".y").call(yAxis)
-      .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("Price ($)");
-
-      return(
-        <g className="y axis"></g>
-      );
-  }
+    d3.select(".x").attr("transform", "translate(0," + height + ")").call(xAxis);
+    
+        return(
+          <g className="x axis"></g>
+        );
+    }
 }
 
 class AxisY extends Component {
@@ -128,7 +124,7 @@ export default class LineChart extends Component {
     }
 
     handleSubmit(submittedData){
-      let formatDate = d3.time.format("%d-%m-%Y");
+      let formatDate = d3.time.format("%d-%b-%y");
       function type(d) {
         d.date = formatDate.parse(d.date);
         d.close = +d.close;
@@ -198,10 +194,10 @@ export default class LineChart extends Component {
       return(
         <div>
           <form>
-            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "./data.csv")}/> 2181 Rows<br />
-            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "./data2.csv")}/> 600 Rows<br />
-            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "./data3.csv")}/> 300 Rows<br />
-            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "./data4.csv")}/> 50 Rows
+            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "data.csv")}/> 2181 Rows<br />
+            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "data2.csv")}/> 600 Rows<br />
+            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "data3.csv")}/> 300 Rows<br />
+            <input type="radio" name="data" onChange={this.handleSubmit.bind(null, "data4.csv")}/> 50 Rows
           </form>
           <div id="chart">
             <svg height={height} width={width} >
