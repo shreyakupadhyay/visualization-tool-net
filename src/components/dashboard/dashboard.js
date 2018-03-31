@@ -19,7 +19,7 @@ const stylesPage = {
 class Dashboard extends Component {
  
   componentDidMount(){
-    this.props.fetchData('/data.json');
+    this.props.fetchData('/chartdata.json');
   }
 
   render() {

@@ -21,7 +21,7 @@ export function fetchData(){
     return dispatch => {
       dispatch(fetchDataBegin());
       
-      fetch('/data.json')
+      fetch('/chartdata.json')
             .then(handleErrors)
             .then(res => {
                 console.log(res)
