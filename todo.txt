@@ -1,0 +1,5 @@
+1. Setup loading as per the home and dashboard.
+2. Setup search for student name and roll no.
+3. Add button for removing and visualizing chart.
+4. Add a proper header on top of the table.
+5. Add Internet Committee avatar on top of the page.

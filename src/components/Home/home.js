@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 import { Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
@@ -11,9 +12,10 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import SvgIcon from 'material-ui/SvgIcon';
 
 import { fetchUserData } from '../../actions/homeActions';
-
+import Dashboard from '../dashboard/dashboard';
 
 const styles = {
   width: '1000px',
@@ -28,12 +30,12 @@ class Home extends Component {
               fixedFooter: true,
               stripedRows: false,
               showRowHover: false,
-              selectable: true,
+              selectable: false,
               multiSelectable: false,
               enableSelectAll: false,
               deselectOnClickaway: true,
               showCheckboxes: true,
-              height: '300px',
+              // height: '300px',
               valueSingle: '2',
       }
     }
@@ -100,6 +102,7 @@ class Home extends Component {
                 <TableRowColumn>Name</TableRowColumn>
                 <TableRowColumn>Status</TableRowColumn>
                 <TableRowColumn>Visualize</TableRowColumn>
+                <TableRowColumn>Remove</TableRowColumn>
               </TableRow>
             </TableHeader>
             <TableBody
@@ -113,14 +116,16 @@ class Home extends Component {
                   <TableRowColumn>{index}</TableRowColumn>
                   <TableRowColumn>{row.name}</TableRowColumn>
                   <TableRowColumn>{row.status}</TableRowColumn>
-                    <IconMenu
-                      iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                      onChange={this.handleChangeSingle}
-                      value={this.state.valueSingle}
-                    >
-                      <MenuItem value="1" primaryText="Remove" />
-                      <MenuItem value="2" primaryText="Visualize User Data" />
-                    </IconMenu>
+                  <TableRowColumn>
+                  <SvgIcon >
+                      <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z" />
+                  </SvgIcon>
+                  </TableRowColumn>
+                  <TableRowColumn>
+                  <SvgIcon >
+                      <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z" />
+                  </SvgIcon>
+                  </TableRowColumn>                  
                 </TableRow>
                 ))}  
 
