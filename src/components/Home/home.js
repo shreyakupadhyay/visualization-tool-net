@@ -117,12 +117,12 @@ class Home extends Component {
                   <TableRowColumn>{row.name}</TableRowColumn>
                   <TableRowColumn>{row.status}</TableRowColumn>
                   <TableRowColumn>
-                  <SvgIcon >
+                  <SvgIcon color='#38BEA0'>
                       <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z" />
                   </SvgIcon>
                   </TableRowColumn>
                   <TableRowColumn>
-                  <SvgIcon >
+                  <SvgIcon color='#DC143C'>
                       <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z" />
                   </SvgIcon>
                   </TableRowColumn>                  
