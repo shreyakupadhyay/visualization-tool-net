@@ -3,29 +3,35 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchData } from '../../actions/dashboardActions';
 import { Line } from 'react-chartjs-2';
+import FlatButton from 'material-ui/FlatButton';
 
 const styles = {
-    height: '50%',
-    width: '50%',
+  stylePage: {
+    width: '1000px',
     margin: '0 auto',
-}
-
-const stylesPage = {
-    width: '800px',
-    margin: '0 auto',
+  },
+  setMargin: {
+    width: '70%',
+    height: '70%',
+    margin: '0 auto'
+  },
+  styleButtons: {
+    width: '550px',
+    margin: '0 auto'
+  }
 }
 
 class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-       
+      num: 0
     }
   }
 
   componentDidMount(){
-    console.log(this.props.match.params.id);
-    this.props.fetchData('/chartdata.json'); // pass the id here.
+    // console.log(this.props.match.params.id); // this gives the page id
+    this.props.fetchData('/chartdata7.json'); // pass the id here.
   }
 
   render() {
@@ -37,7 +43,7 @@ class Dashboard extends Component {
     if(loading) return <div>Loading...</div>
 
     const dataValue = {
-      labels: data.labels,
+      labels: data.yValue,
       datasets: [
         {
           label: 'Ping data',
@@ -58,16 +64,33 @@ class Dashboard extends Component {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: data.dataValue
+          data: data.xValue,
+          devicePixelRatio: 10,
         }
       ]
     };
 
-
     return (
-      <div style={stylesPage}>
-      <h2>Visualize Ping Data</h2>
-      <Line data={dataValue} />
+      <div style={styles.setMargin}>
+      <div style={styles.styleButtons}>
+            <FlatButton label="10 Min." primary={true}/>
+            <FlatButton label="15 Min." primary={true} />
+            <FlatButton label="30 Min." primary={true} />
+      </div>
+      <Line 
+          data={dataValue} 
+          options={{
+            title: {
+              display: true,
+              text: 'Visualize Ping Data',
+              fontSize: 25
+            },
+            legend:{
+              display: true,
+              position: 'bottom'
+            }
+          }}    
+      />
       </div>
     );
   }
