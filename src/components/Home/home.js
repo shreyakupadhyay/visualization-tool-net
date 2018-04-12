@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
@@ -78,6 +78,10 @@ class Home extends Component {
       this.setState({height: event.target.value});
     };
 
+    handleClick = (event) => {
+      console.log("event");
+    }
+
     render() {
       const { error, loading, userdata } = this.props;
 
@@ -86,51 +90,58 @@ class Home extends Component {
       if(loading) return <div>Loading...</div>
 
       return (
-        <div style={styles}>
-          <Table
-            height={this.state.height}
-            fixedHeader={this.state.fixedHeader}
-            fixedFooter={this.state.fixedFooter}
-            selectable={this.state.selectable}
-            multiSelectable={this.state.multiSelectable}
-          >
-            <TableHeader
-              adjustForCheckbox={this.state.showCheckboxes}
+        <div>
+          <div style={styles}>
+            <Table
+              height={this.state.height}
+              fixedHeader={this.state.fixedHeader}
+              fixedFooter={this.state.fixedFooter}
+              selectable={this.state.selectable}
+              multiSelectable={this.state.multiSelectable}
             >
-              <TableRow>
-                <TableRowColumn>ID</TableRowColumn>
-                <TableRowColumn>Name</TableRowColumn>
-                <TableRowColumn>Status</TableRowColumn>
-                <TableRowColumn>Visualize</TableRowColumn>
-                <TableRowColumn>Remove</TableRowColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody
-              displayRowCheckbox={this.state.showCheckboxes}
-              deselectOnClickaway={this.state.deselectOnClickaway}
-              showRowHover={this.state.showRowHover}
-              stripedRows={this.state.stripedRows}
-            >
-              {userdata.map( (row, index) => (
-                <TableRow key={index}>
-                  <TableRowColumn>{index}</TableRowColumn>
-                  <TableRowColumn>{row.name}</TableRowColumn>
-                  <TableRowColumn>{row.status}</TableRowColumn>
-                  <TableRowColumn>
-                  <SvgIcon color='#38BEA0'>
-                      <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z" />
-                  </SvgIcon>
-                  </TableRowColumn>
-                  <TableRowColumn>
-                  <SvgIcon color='#DC143C'>
-                      <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z" />
-                  </SvgIcon>
-                  </TableRowColumn>                  
+              <TableHeader
+                adjustForCheckbox={this.state.showCheckboxes}
+              >
+                <TableRow>
+                  <TableRowColumn>ID</TableRowColumn>
+                  <TableRowColumn>Name</TableRowColumn>
+                  <TableRowColumn>Roll No</TableRowColumn>
+                  <TableRowColumn>Visualize</TableRowColumn>
+                  <TableRowColumn>Remove</TableRowColumn>
                 </TableRow>
-                ))}  
+              </TableHeader>
+              <TableBody
+                displayRowCheckbox={this.state.showCheckboxes}
+                deselectOnClickaway={this.state.deselectOnClickaway}
+                showRowHover={this.state.showRowHover}
+                stripedRows={this.state.stripedRows}
+              >
+                {userdata.map( (row, index) => (
+                  <TableRow key={index}>
+                    <TableRowColumn>{index}</TableRowColumn>
+                    <TableRowColumn>{row.name}</TableRowColumn>
+                    <TableRowColumn>{row.status}</TableRowColumn>
+                    <TableRowColumn>  
+                    <Link to={'/dashboard/'+index}>
+                      <SvgIcon color='#38BEA0'>
+                          <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z" />
+                      </SvgIcon>
+                    </Link>
+                    </TableRowColumn>
+                   
+                    <TableRowColumn>
+                    <SvgIcon color='#DC143C'>
+                        <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z" />
+                    </SvgIcon>
+                    </TableRowColumn>                  
+                  </TableRow>
+                  ))}  
 
-            </TableBody>
-          </Table>
+              </TableBody>
+            </Table>
+          </div>
+          <div>
+          </div>
         </div>
       )}
     }
