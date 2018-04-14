@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
+import { VictoryChart, VictoryAxis, VictoryLine, VictoryZoomContainer, VictoryBrushContainer,
+  VictoryBar, VictoryArea } from 'victory';
 import { connect } from 'react-redux';
 import { fetchData } from '../../actions/dashboardActions';
-import { Line } from 'react-chartjs-2';
+
+import Toggle from 'material-ui/Toggle';
 import FlatButton from 'material-ui/FlatButton';
 
 const styles = {
@@ -11,27 +14,67 @@ const styles = {
     margin: '0 auto',
   },
   setMargin: {
-    width: '70%',
-    height: '70%',
+    width: '50%',
+    height: '50%',
     margin: '0 auto'
   },
   styleButtons: {
     width: '550px',
     margin: '0 auto'
-  }
+  },
+  block: {
+    maxWidth: 250,
+  },
+  toggle: {
+    marginBottom: 16,
+  },
+  thumbOff: {
+    backgroundColor: '#ffcccc',
+  },
+  trackOff: {
+    backgroundColor: '#ff9d9d',
+  },
+  thumbSwitched: {
+    backgroundColor: 'red',
+  },
+  trackSwitched: {
+    backgroundColor: '#ff9d9d',
+  },
+  labelStyle: {
+    color: 'rgb(0, 188, 212)',
+  },
 }
+
 
 class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      num: 0
+      zoomAxis: 'x',
+      data: props.data
+    }
+    this.handleDataFilter = this.handleDataFilter.bind(this);
+  }
+
+  handleZoom(domain) {
+    this.setState({selectedDomain: domain});
+  }
+
+  handleDataFilter(data, time) {
+    if(time===0){
+      return data;
+    }
+    else if(data.length > 0){
+      let d =  new Date(data[0].x);
+      d.setMinutes(d.getMinutes() + time);
+      return data.filter((item) => item.x <= d)
     }
   }
 
+
   componentDidMount(){
     // console.log(this.props.match.params.id); // this gives the page id
-    this.props.fetchData('/chartdata7.json'); // pass the id here.
+    this.props.fetchData('/chartdata9.json'); // pass the id here.
   }
 
   render() {
@@ -42,56 +85,45 @@ class Dashboard extends Component {
 
     if(loading) return <div>Loading...</div>
 
-    const dataValue = {
-      labels: data.yValue,
-      datasets: [
-        {
-          label: 'Ping data',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: 'rgba(75,192,192,0.4)',
-          borderColor: '#38BEA0',
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: 'rgba(75,192,192,1)',
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-          pointHoverBorderColor: 'rgba(220,220,220,1)',
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: data.xValue,
-          devicePixelRatio: 10,
-        }
-      ]
-    };
-
     return (
-      <div style={styles.setMargin}>
-      <div style={styles.styleButtons}>
-            <FlatButton label="10 Min." primary={true}/>
-            <FlatButton label="15 Min." primary={true} />
-            <FlatButton label="30 Min." primary={true} />
-      </div>
-      <Line 
-          data={dataValue} 
-          options={{
-            title: {
-              display: true,
-              text: 'Visualize Ping Data',
-              fontSize: 25
-            },
-            legend:{
-              display: true,
-              position: 'bottom'
+      <div>
+          <div style={styles.styleButtons}>
+            <FlatButton label="10 Min." primary={true} onClick={this.handleDataFilter(data,10)}/>
+            <FlatButton label="15 Min." primary={true} onClick={this.handleDataFilter(data,15)}/>
+            <FlatButton label="30 Min." primary={true} onClick={this.handleDataFilter(data,30)}/>
+            <Toggle
+              label={this.state.zoomAxis + " axis zoom"}
+              labelPosition="right"
+              style={styles.toggle}
+              onToggle={()=>{
+                if(this.state.zoomAxis==="x")
+                    this.setState({zoomAxis: "y"});
+                else {
+                  this.setState({zoomAxis: "x"});
+                }
+              }}
+            />
+          </div>
+          <div style={styles.setMargin}>
+          <VictoryChart width={600} height={350} scale={{x: "time"}}
+            containerComponent={
+              <VictoryZoomContainer responsive={true}
+                zoomDimension={this.state.zoomAxis}
+                zoomDomain={this.state.zoomDomain}
+                onZoomDomainChange={this.handleZoom.bind(this)}
+              />
             }
-          }}    
-      />
+          >
+            <VictoryLine
+              style={{
+                data: {stroke: "tomato"}
+              }}
+              data={this.handleDataFilter(this.props.data,0)}
+            />
+
+          </VictoryChart>
       </div>
+        </div>
     );
   }
 }

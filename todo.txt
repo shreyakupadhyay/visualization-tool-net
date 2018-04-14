@@ -3,3 +3,5 @@
 3. Add button for removing and visualizing chart.
 4. Add a proper header on top of the table.
 5. Add Internet Committee avatar on top of the page.
+6. Option to download the script and run according to the operating system.
+7. Jump 3-4 values in between and draw the graph or use moving average.

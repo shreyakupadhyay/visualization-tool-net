@@ -23,7 +23,7 @@ export default function dashboardReducer(state=initialState, action){
             return {
                 ...state,
                 loading: false,
-                items: action.payload.data
+                items: action.payload.data.map((d) => Object({x: new Date(d.y), y: d.x}))
             };
 
         case FETCH_DATA_FAILURE:
