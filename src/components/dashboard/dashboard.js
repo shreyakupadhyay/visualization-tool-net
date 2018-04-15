@@ -51,9 +51,10 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       zoomAxis: 'x',
-      data: props.data
+      time: 0
     }
     this.handleDataFilter = this.handleDataFilter.bind(this);
+    this.handleMovingAverage = this.handleMovingAverage.bind(this);
   }
 
   handleZoom(domain) {
@@ -71,10 +72,21 @@ class Dashboard extends Component {
     }
   }
 
+  handleMovingAverage(data){
+    let movingAverage = []
+    for (var i = 1; i < data.length-1; i++)
+        {
+            var meanX = (data[i].y + data[i-1].y + data[i+1].y)/3.0;
+            var dict = {"y":meanX, "x": data[i].x}
+            movingAverage.push(dict);
+        }
+    console.log(movingAverage)
+    return movingAverage
+  }
 
   componentDidMount(){
     // console.log(this.props.match.params.id); // this gives the page id
-    this.props.fetchData('/chartdata9.json'); // pass the id here.
+    this.props.fetchData('/chartdata4.json'); // pass the id here.
   }
 
   render() {
@@ -85,12 +97,16 @@ class Dashboard extends Component {
 
     if(loading) return <div>Loading...</div>
 
+    var dataValue = this.state.time==-1 ? this.handleMovingAverage(this.props.data) : this.handleDataFilter(this.props.data,this.state.time);
+
     return (
       <div>
           <div style={styles.styleButtons}>
-            <FlatButton label="10 Min." primary={true} onClick={this.handleDataFilter(data,10)}/>
-            <FlatButton label="15 Min." primary={true} onClick={this.handleDataFilter(data,15)}/>
-            <FlatButton label="30 Min." primary={true} onClick={this.handleDataFilter(data,30)}/>
+            <FlatButton label="10 Min." primary={true} onClick={() => this.setState({time: 10})}/>
+            <FlatButton label="15 Min." primary={true} onClick={() => this.setState({time: 15})}/>
+            <FlatButton label="30 Min." primary={true} onClick={() => this.setState({time: 30})}/>
+            <FlatButton label="Moving Average" primary={true} onClick={() => this.setState({time: -1})}/>
+            <FlatButton label="Default" primary={true} onClick={() => this.setState({time: 0})}/>
             <Toggle
               label={this.state.zoomAxis + " axis zoom"}
               labelPosition="right"
@@ -118,7 +134,7 @@ class Dashboard extends Component {
               style={{
                 data: {stroke: "tomato"}
               }}
-              data={this.handleDataFilter(this.props.data,0)}
+              data={dataValue}
             />
 
           </VictoryChart>
