@@ -86,7 +86,7 @@ class Dashboard extends Component {
 
   componentDidMount(){
     // console.log(this.props.match.params.id); // this gives the page id
-    this.props.fetchData('/chartdata4.json'); // pass the id here.
+    this.props.fetchData('/april_17_shreyak_local.json'); // pass the id here.
   }
 
   render() {

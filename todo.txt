@@ -7,3 +7,4 @@
 7. Jump 3-4 values in between and draw the graph or use moving average.
 8. Next 10 min, 30 min such type of visualization.
 9. Get statistics from internal ping results.
+10. Try lowpass filter on the data. 
